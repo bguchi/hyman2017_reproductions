@@ -1,0 +1,28 @@
+RELEVANT VARIABLE SPECIFICATIONS (Fig. 2A)
+
+HYMAN2017_REPRODUCTIONS (directory)
+    - The "home" directory containing the interactive ('live', `.mlx`) reproductions script; the 'm-based', sparsely commented version of said script (`.m`); function scripts (e.g., `calc_unpds.m`); data on ESPs for all sessions (`SwitchTrials.mat`); the variable specifications .txt file; the IMAGES sub-directory, and the 3PORTDATA sub-directory. 
+    - The reproductions script must always be run in this directory.
+
+IMAGES (directory)
+    - Directory containing reference image for reproduction (`fig2a.png`)
+
+3PORTDATA (directory)
+    - Directory containing data for 16 sessions (`.mat` files) 
+    - Each session in the 3PORTDATA directory is structured the same. The relevant variables for our purposes are :
+        *** EVENT_TIMESTAMPS ((3*num_trials or 3*num_trials + 1) x 3 matrix of doubles)
+            - Each row represents a segment of a trial: (1) the trial start, (2) the nose poke for that trial, and (3) the reward/no reward outcome. Some sessions append a singular trial start to the end of the collected data, explaining the variable number of rows.
+            - Column descriptors: 
+                - C1: start time (s) of trial segment 
+                - C2: end time (s) of trial segment 
+                - C3: trial segment code
+                    - 10, 11, 12: the cue light is illuminated at port 1, 2, or 3
+                    - 1, 2, 3: a nose poke is recorded at port 1, 2, or 3
+                    - 4, 5, 6: a reward is recorded at port 1, 2, or 3
+                    - 7, 8, 9: a no-reward is recorded at port 1, 2, or 3
+        *** TV1 (1 x (variable) row vector of doubles)
+            - Row 1 records the raw timestamp (s) at column `i`
+            - Each column represents a timestamp of the session; the sampling rate is 100 Hz, i.e., every column is separated by .01s
+        *** POKE_ENTRIES{25/50/75} (`(size(Tv1, 2) - 1)` x 1 column vector of doubles)
+            - Each row represents a TV1-corresponding timestamp of the given session; presumably, the first timestamp of TV1 got "cut off", since there are 1 fewer timestamps recorded in POKE_ENTRIES than in TV1 
+            - Col 1 records whether a nose poke occurred (1 for true, 0 for false) at *any* port (or the 25%, 50%, or 75% port) in particular at the timestamp corresponding to row `i`
